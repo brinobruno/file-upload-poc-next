@@ -1,8 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir, access } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 import { join, extname } from "path";
 import { v4 as uuidv4 } from "uuid";
-import { constants } from "fs";
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,18 +15,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    const tempDir = "/tmp";
-
-    try {
-      // Ensure `/tmp` exists before creating subdirectories (this is for Vercel)
-      await access(tempDir, constants.F_OK);
-    } catch {
-      console.error("ERROR: /tmp does not exist");
-    }
-
     // Create uploads directory if it doesn't exist
-    const uploadsDir = join(tempDir, "uploads");
-
+    const uploadsDir = "/tmp/uploads";
     try {
       await mkdir(uploadsDir, { recursive: true });
       console.log("Uploads directory created:", uploadsDir);
