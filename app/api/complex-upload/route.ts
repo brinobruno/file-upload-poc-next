@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create uploads directory if it doesn't exist
-    const uploadsDir = join("tmp", "uploads");
+    const uploadsDir = join("/tmp", "uploads");
     await mkdir(uploadsDir, { recursive: true });
 
     const uploadedFiles = [];
