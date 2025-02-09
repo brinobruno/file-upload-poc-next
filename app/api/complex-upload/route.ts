@@ -17,12 +17,7 @@ export async function POST(request: NextRequest) {
 
     // Create uploads directory if it doesn't exist
     const uploadsDir = "/tmp/uploads";
-    try {
-      await mkdir(uploadsDir, { recursive: true });
-      console.log("Uploads directory created:", uploadsDir);
-    } catch (error) {
-      console.error("Failed to create uploads directory:", error);
-    }
+    await mkdir(uploadsDir, { recursive: true });
 
     const uploadedFiles = [];
 
